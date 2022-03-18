@@ -1,8 +1,15 @@
 import React from 'react';
 
-export class CounterViewer extends React.Component {
-    // @ts-ignore
-    constructor(props) {
+interface ICounterViewerProps {
+    readonly count: number;
+}
+
+interface ICounterViewerState {
+    readonly isEven: boolean;
+}
+
+export class CounterViewer extends React.Component<ICounterViewerProps, ICounterViewerState> {
+    constructor(props: ICounterViewerProps) {
         super(props);
 
         this.state = {
@@ -12,21 +19,20 @@ export class CounterViewer extends React.Component {
         console.log('CounterViewer constructor');
     }
 
-    componentWillMount() { // deprecated
+    componentWillMount(): void { // deprecated
         console.log('componentWillMount');
     }
 
-    componentDidMount() {
+    componentDidMount(): void {
         console.log('componentDidMount');
     }
 
-    componentWillReceiveProps(nextProps: Readonly<{}>) { // deprecated
+    componentWillReceiveProps(nextProps: ICounterViewerProps): void { // deprecated
         console.log('componentWillReceiveProps', { nextProps, prevProps: this.props})
     }
 
-    shouldComponentUpdate(nextProps: Readonly<{}>, nextState: Readonly<{}>, nextContext: any): boolean {
+    shouldComponentUpdate(nextProps: ICounterViewerProps, nextState: ICounterViewerState): boolean {
         console.log('shouldComponentUpdate', { nextProps, prevProps: this.props, nextState, prevState: this.state});
-        // @ts-ignore
         if (nextProps.count === 5) {
             return false;
         }
@@ -34,37 +40,36 @@ export class CounterViewer extends React.Component {
         return true; // чтобы продожить цикл дальше
     }
 
-    componentWillUpdate(nextProps: Readonly<{}>, nextState: Readonly<{}>) { // deprecated
+    componentWillUpdate(nextProps: Readonly<ICounterViewerProps>, nextState: Readonly<ICounterViewerState>): void { // deprecated
         console.log('componentWillUpdate', { nextProps, nextState });
     }
 
-    componentDidUpdate(prevProps: Readonly<{}>, prevState: Readonly<{}>) {
+    componentDidUpdate(prevProps: Readonly<ICounterViewerProps>, prevState: Readonly<ICounterViewerState>): void {
         console.log('componentDidUpdate', { prevProps, prevState });
     }
 
-    componentWillUnmount() {
+    componentWillUnmount(): void {
         console.log('componentWillUnmount');
     }
 
-    static getDerivedStateFromProps(nextProps: Readonly<{}>) {
+    static getDerivedStateFromProps(nextProps: Readonly<ICounterViewerProps>): Partial<ICounterViewerState> | null {
         console.log('getDerivedStateFromProps', { nextProps });
-        // @ts-ignore
         if (nextProps.count % 2 === 0) {
             return { isEven: true }
-        } else {
+        } else if (nextProps.count % 2 !== 0) {
             return { isEven: false }
+        } else {
+            return null;
         }
     }
 
     render() {
         console.log('render or rerender');
-        {/*// @ts-ignore*/}
         const { count } = this.props;
 
         return (
             <>
                 <p>Now counter is: { count }</p>
-                {/*// @ts-ignore*/}
                 <p>Counter is {this.state.isEven ? 'Even' : 'Odd'}</p>
             </>
         );

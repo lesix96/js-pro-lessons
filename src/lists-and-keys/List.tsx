@@ -1,40 +1,42 @@
 import React, {PureComponent, useState} from 'react';
 import { peoples } from './mock-data';
 
-// @ts-ignore
-class ListItem extends PureComponent {
+interface IListItemProps {
+    readonly item: string;
+}
+
+interface IListItemState {}
+
+class ListItem extends PureComponent<IListItemProps, IListItemState> {
     componentDidMount() {
-        // @ts-ignore
         console.log('componentDidMount', this.props.item)
     }
 
-    // @ts-ignore
-    componentDidUpdate(prevProps) {
-        // @ts-ignore
+    componentDidUpdate(prevProps: IListItemProps) {
         console.log('componentDidUpdate', { prevProps: prevProps.item, currProps : this.props.item });
     }
 
     componentWillUnmount() {
-        // @ts-ignore
         console.log('componentWillUnmount', this.props.item)
     }
 
     render() {
-        // @ts-ignore
         const { item } = this.props;
         return <li>{item}</li>;
     }
 }
 
-export const List = () => {
+export const List: React.FC = () => {
     const [people, setPeople] = useState(peoples);
 
-    const handleClickName = () => {
+    const handleClickName = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
         const newPeople = people.map((item) => item.name === 'Alex' ? {...item, name: 'Olga'} : {...item});
         setPeople(newPeople);
     }
 
-    const handleClickId = () => {
+    const handleClickId = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
         const newPeople = people.map((item) => item.id === 2 ? {...item, id: 8} : {...item});
         setPeople(newPeople);
     }
@@ -45,7 +47,6 @@ export const List = () => {
             <button onClick={handleClickId}>Change State Id</button>
             <ul>
                 { people.map((item, index) => {
-                    // @ts-ignore
                     return <ListItem item={item.name} key={item.id} />
                 }) }
             </ul>

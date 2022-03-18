@@ -1,5 +1,14 @@
-// @ts-ignore
-export const ValidationMessage1 = ({ val }) => {
+import React from "react";
+
+interface IValidationMessageProps {
+    val: number;
+}
+
+interface IMessageProps {
+    text: string;
+}
+
+export const ValidationMessage1 = ({ val }: IValidationMessageProps) => {
     if (val >= 10) {
         return <h3>Grate than 10 or equal</h3>
     } else {
@@ -7,8 +16,7 @@ export const ValidationMessage1 = ({ val }) => {
     }
 }
 
-// @ts-ignore
-export const ValidationMessage = ({ val }) => {
+export const ValidationMessage = ({ val }: IValidationMessageProps) => {
     return (
         <>
             {
@@ -20,8 +28,7 @@ export const ValidationMessage = ({ val }) => {
     )
 }
 
-// @ts-ignore
-export const Message = ({ text }) => {
+export const Message = ({ text }: IMessageProps) => {
     return (
         <>
             {
@@ -33,7 +40,7 @@ export const Message = ({ text }) => {
     )
 }
 
-export const App = () => {
+export const App: React.FC = () => {
     return (
         <>
             <ValidationMessage val={10} />

@@ -1,4 +1,10 @@
-export const POSITIONS = [
+interface IPosition {
+    id: string;
+    title: string;
+    value: string;
+}
+
+export const POSITIONS: IPosition[] = [
     {
         id: 'fe',
         title: 'front-end',

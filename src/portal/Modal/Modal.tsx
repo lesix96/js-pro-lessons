@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import Portal from "./Portal";
+import Portal from "../Portal";
+import './Modal.css';
 
 interface IModalProps {
     title: string;

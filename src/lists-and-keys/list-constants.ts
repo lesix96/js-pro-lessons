@@ -1,4 +1,9 @@
-export const BUTTON_TABS = [
+interface ITabs {
+    dataName: string;
+    title: string;
+}
+
+export const BUTTON_TABS: ITabs[] = [
     {
         dataName: '1',
         title: 'Tab1'

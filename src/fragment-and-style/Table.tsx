@@ -8,8 +8,9 @@ import './styles.css';
         ]);*/
 
 
+const style: React.CSSProperties = { color: 'red', textTransform: 'uppercase' };
 // Fragment
-const Column = () => {
+const Column: React.FC = () => {
     /*return (
         <div>
             <td>Data 3</td> {/!*!// ячейка или колонка внутри строки*!/}
@@ -18,21 +19,19 @@ const Column = () => {
     )*/
     return (
         <>
-            <td style={{ color: 'red', textTransform: 'uppercase' }}>Data 3</td> {/*!// ячейка или колонка внутри строки*/}
+            <td style={style}>Data 3</td> {/*!// ячейка или колонка внутри строки*/}
             <td className="title">Data 4</td>
         </>
     )
 }
 
-export const Table = () => {
-
+export const Table: React.FC = () => {
     return (
         <table>
             <tbody>
                 <tr> {/*// строка*/}
                     <td>Data 1</td> {/*// ячейка или колонка внутри строки*/}
                     <td>Data 2</td>
-                    {/*// @ts-ignore*/}
                     <Column />
                     {/*<Column />*/}
                 </tr>

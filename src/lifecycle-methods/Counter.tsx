@@ -1,9 +1,14 @@
 import React from 'react';
 import { CounterViewer } from "./CounterViewer";
 
-export class Counter extends React.Component {
-    // @ts-ignore
-    constructor(props) {
+interface ICounterProps {}
+
+interface ICounterState {
+    readonly counter: number;
+}
+
+export class Counter extends React.Component<ICounterProps, ICounterState> {
+    constructor(props: ICounterProps) {
         super(props);
 
         this.state = {
@@ -14,17 +19,16 @@ export class Counter extends React.Component {
         console.log('Counter constructor');
     }
 
-    handleClick() {
+    handleClick(e: React.MouseEvent<HTMLButtonElement>) {
+        e.preventDefault();
         this.setState(prevState =>
             ({
-                // @ts-ignore
                 counter: prevState.counter + 1,
             })
         )
     }
 
     render() {
-        // @ts-ignore
         const { counter } = this.state;
 
         return (
@@ -32,7 +36,6 @@ export class Counter extends React.Component {
                 { counter !== 8
                     &&
                     <>
-                        {/*// @ts-ignore*/}
                         <CounterViewer count={counter} />
                     </>
                 }

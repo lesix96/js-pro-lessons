@@ -1,8 +1,13 @@
 import React from 'react';
 
-export class CounterViewer1 extends React.Component {
+interface ICounterViewerState {}
+
+interface ICounterViewerProps {
+    count: number;
+}
+
+export class CounterViewer1 extends React.Component<ICounterViewerProps, ICounterViewerState> {
     render() {
-        {/*// @ts-ignore*/}
         const { count } = this.props;
         return (
             <p>Now counter is: { count }</p>
@@ -10,8 +15,7 @@ export class CounterViewer1 extends React.Component {
     }
 }
 
-{/*// @ts-ignore*/}
-export const CounterViewer2 = (props) => {
+export const CounterViewer2 = (props: ICounterViewerProps) => {
     const { count } = props;
 
     return (

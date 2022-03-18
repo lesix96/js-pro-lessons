@@ -12,6 +12,9 @@ import { Form1, Form2 } from "./forms/Form";
 import { Counter } from "./lifecycle-methods/Counter";
 import { Form11, Form22 } from "./refs/Form";
 import Routing from "./hoc/Routing";
+import Preloader from "./hoc/hoc-preloader/Preloader";
+import Sandbox from "./portal/ModalSandbox";
+import HOCApp from "./hoc/ToggleButtonHOC";
 
 const element = <h1>Hello Element</h1>; // элемент
 
@@ -22,9 +25,9 @@ ReactDOM.render(
         {scratchComp}
         {element}*/}
 
-        <CounterButton1 /> // state
+        {/*<CounterButton1 /> // state
         <CounterButton2 />
-        <CounterButton3 />
+        <CounterButton3 />*/}
 
         {/*<Counter1 /> // props
         <Counter2 />
@@ -51,7 +54,13 @@ ReactDOM.render(
         {/*<Form11 /> // refs
         <Form22 />*/}
 
-        {/*<Routing />*/}
+        {/*<Routing /> // HOC
+        <Preloader />
+        <HOCApp />*/}
+
+        {/*<Sandbox /> // portal
+        */}
+
     </div>, // компонент
   document.getElementById('root')
 );

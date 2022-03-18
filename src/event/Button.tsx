@@ -1,8 +1,14 @@
 import React from 'react';
 
-export class Button1 extends React.Component {
+interface IButtonState {}
+
+interface IButtonProps {
+    onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    text: string;
+}
+
+export class Button1 extends React.Component<IButtonProps, IButtonState> {
     render() {
-        // @ts-ignore
         const { onClick, text } = this.props;
         return (
             <button onClick={onClick}>{text}</button>
@@ -10,8 +16,7 @@ export class Button1 extends React.Component {
     }
 }
 
-// @ts-ignore
-export const Button2 = ({ onClick, text }) => {
+export const Button2 = ({ onClick, text }: IButtonProps) => {
     return (
         <button onClick={onClick}>{text}</button>
     )

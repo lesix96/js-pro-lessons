@@ -1,30 +1,29 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { BUTTON_TABS } from "./list-constants";
 
-const Tab1 = () => {
+const Tab1: React.FC = () => {
     return (
         <p>Content for Tab1</p>
     )
 }
 
-const Tab2 = () => {
+const Tab2: React.FC = () => {
     return (
         <p>Content for Tab2</p>
     )
 }
 
-const Tab3 = () => {
+const Tab3: React.FC = () => {
     return (
         <p>Content for Tab3</p>
     )
 }
 
-export const Tabs = () => {
+export const Tabs: React.FC = () => {
     const [activeTab, setActiveTab] = useState(1);
 
-    // @ts-ignore
-    const handleTab = (e) => {
-        setActiveTab(+e.target.getAttribute('data-name'));
+    const handleTab = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setActiveTab(Number((event.target as HTMLButtonElement).getAttribute('data-name')));
     }
 
     console.log(activeTab);

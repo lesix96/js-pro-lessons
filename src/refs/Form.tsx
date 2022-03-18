@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useRef, useState} from 'react';
 import { POSITIONS } from './mock-data';
 
 export const Form11 = () => {
@@ -7,23 +7,32 @@ export const Form11 = () => {
     const [showData, setShowData] = useState({ name: '', text: '', position: '' });
     const [select, setSelect] = useState('');
 
-    // @ts-ignore
-    const handleInputChange = (e) => {
+    const inputRef = useRef<HTMLInputElement | null>(null);
+    const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+    const selectRef = useRef<HTMLSelectElement | null>(null)
+
+    // и теперь 3 метода мы можем заменить одним
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>): void => {
+        setInputText((inputRef.current  as HTMLInputElement).value);
+        setTextareaText((textareaRef.current as HTMLTextAreaElement).value);
+        setSelect((selectRef.current as HTMLSelectElement).value);
+    }
+/*
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setInputText(e.target.value);
     }
 
-    // @ts-ignore
-    const handleTextareaChange = (e) => {
+    const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
         setTextareaText(e.target.value);
     }
 
-    // @ts-ignore
-    const handleSelect = (e) => {
+    const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>): void => {
         setSelect(e.target.value);
     }
+*/
 
-    // @ts-ignore
-    const handleShow = (e) => {
+    const handleShow = (e: React.MouseEvent<HTMLButtonElement>): void => {
         e.preventDefault();
         setShowData({ name: inputText, text: textareaText, position: select });
         setInputText('');
@@ -42,7 +51,7 @@ export const Form11 = () => {
                     type="text"
                     name="name"
                     value={inputText}
-                    onChange={handleInputChange}
+                    onChange={handleChange}
                 />
             </label> {/*// привязывание к label = оборачивание в него*/}
 
@@ -52,12 +61,12 @@ export const Form11 = () => {
             <textarea
                 id="text"
                 value={textareaText}
-                onChange={handleTextareaChange}
+                onChange={handleChange}
             />
 
             <br />
 
-            <select value={select} onChange={handleSelect}>
+            <select value={select} onChange={handleChange}>
                 {/*<option value="front-end">front-end</option>
                 <option value="back-end">back-end</option>
                 <option value="full-stack">full-stack</option>*/}
@@ -79,7 +88,22 @@ export const Form11 = () => {
     )
 }
 
-export class Form22 extends React.Component {
+interface IFormShowDataState {
+    name: string;
+    text: string;
+    position: string;
+};
+
+interface IFormState {
+    inputText: string;
+    textareaText: string;
+    selectedPosition: string;
+    showData: IFormShowDataState;
+};
+
+interface IFormProps {};
+
+export class Form22 extends React.Component<IFormProps, IFormState> {
     state = {
         inputText: '',
         textareaText: '',
@@ -91,31 +115,34 @@ export class Form22 extends React.Component {
         }
     };
 
-    // @ts-ignore
-    /*handleInputChange = ({ target: { value } }) => {
-        // @ts-ignore
+    // getRef = (node) => { this.el = node } // так во внутреннюю переменную el присваивается ссылка на узел элемента
+    // а значение ref на инпуте будет результатом вызова getRef
+    // является устаревшим способом способом и был заменен с 16 версии на createRef
+
+    private inputRef = React.createRef<HTMLInputElement>(); // ссылки на соответствующие элементы
+    private textareaRef = React.createRef<HTMLTextAreaElement>();
+    private selectRef = React.createRef<HTMLSelectElement>();
+
+    /*handleInputChange = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
         console.log(this.el.value);
         this.setState({
             inputText: value,
         })
     }
 
-    // @ts-ignore
-    handleTextareaChange = ({ target: { value } }) => {
+    handleTextareaChange = ({ target: { value } }: React.ChangeEvent<HTMLTextAreaElement>) => {
         this.setState({
             textareaText: value,
         })
     }
 
-    // @ts-ignore
-    handleSelect = ({ target: { value } }) => {
+    handleSelect = ({ target: { value } }: React.ChangeEvent<HTMLSelectElement>) => {
         this.setState({
             selectedPosition: value,
         })
     }*/
 
-    // @ts-ignore
-    handleData = (e) => {
+    handleData = (e: React.MouseEvent<HTMLButtonElement>): void => {
         e.preventDefault();
         const { inputText, textareaText, selectedPosition } = this.state;
         this.setState({
@@ -129,31 +156,20 @@ export class Form22 extends React.Component {
         })
     }
 
-    // getRef = (node) => { this.el = node } // так во внутреннюю переменную el присваивается ссылка на узел элемента
-    // а значение ref на инпуте будет результатом вызова getRef
-    // является устаревшим способом способом и был заменен с 16 версии на createRef
-
-    inputRef = React.createRef(); // ссылки на соответствующие элементы
-    textareaRef = React.createRef();
-    selectRef = React.createRef();
-
     // и теперь 3 метода мы можем заменить одним
-    handleChange = () => {
+    handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>): void => {
         this.setState({
-            // @ts-ignore
-            inputText: this.inputRef.current.value,
-            // @ts-ignore
-            textareaText: this.textareaRef.current.value,
-            // @ts-ignore
-            selectedPosition: this.selectRef.current.value,
+            inputText: (this.inputRef.current  as HTMLInputElement).value,
+            textareaText: (this.textareaRef.current as HTMLTextAreaElement).value,
+            selectedPosition: (this.selectRef.current as HTMLSelectElement).value,
         })
     }
 
-    componentWillMount() {
+    componentWillMount(): void {
         console.log('componentWillMount', this.inputRef);
     }
 
-    componentDidMount() {
+    componentDidMount(): void {
         console.log('componentDidMount', this.inputRef);
     }
 
@@ -168,8 +184,6 @@ export class Form22 extends React.Component {
                     <label htmlFor="name">Name:
                         <input
                             // ref={this.getRef}
-
-                            // @ts-ignore
                             ref={this.inputRef}
                             type="text"
                             name="name"
@@ -182,7 +196,6 @@ export class Form22 extends React.Component {
                     {/*Textarea*/}
                     <label htmlFor="text">Text:</label> {/*// привязывание при помощи htmlFor={id элемента} */}
                     <textarea
-                        // @ts-ignore
                         ref={this.textareaRef}
                         id="text"
                         name="text"
@@ -193,7 +206,6 @@ export class Form22 extends React.Component {
                     <br />
 
                     <select
-                        // @ts-ignore
                         ref={this.selectRef}
                         value={this.state.selectedPosition}
                         onChange={this.handleChange}

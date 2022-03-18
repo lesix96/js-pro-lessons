@@ -1,9 +1,14 @@
 import React, {useState} from 'react';
 import { CounterViewer1, CounterViewer2 } from "./CounterViewer";
 
-export class Counter1 extends React.Component {
-    // @ts-ignore
-    constructor(props) {
+interface ICounterProps {}
+
+interface ICounterState {
+    counter: number;
+}
+
+export class Counter1 extends React.Component<ICounterProps, ICounterState> {
+    constructor(props: ICounterProps) {
         super(props);
 
         this.state = {
@@ -13,23 +18,21 @@ export class Counter1 extends React.Component {
         this.handleClick = this.handleClick.bind(this);
     }
 
-    handleClick() {
+    handleClick(e: React.MouseEvent<HTMLButtonElement>): void {
+        e.preventDefault();
         console.log('click');
         this.setState(prevState =>
             ({
-                // @ts-ignore
                 counter: prevState.counter + 1,
             })
         )
     }
 
     render() {
-        // @ts-ignore
         const { counter } = this.state;
 
         return (
             <div>
-                {/*// @ts-ignore*/}
                 <CounterViewer1 count={counter} />
                 <button onClick={this.handleClick}>+1</button>
             </div>
@@ -37,14 +40,14 @@ export class Counter1 extends React.Component {
     }
 }
 
-export class Counter2 extends React.Component {
+export class Counter2 extends React.Component<ICounterProps, ICounterState> {
     state = {
         counter: 0,
     }
 
-    handleClick = () => {
+    handleClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
+        e.preventDefault();
         console.log('click');
-        // @ts-ignore
         this.setState(({ counter }) =>
             ({
                 counter: counter + 1,
@@ -66,8 +69,7 @@ export class Counter2 extends React.Component {
 export const Counter3 = () => {
     const [counter, setCounter] = useState(0);
 
-    // @ts-ignore
-    const handleClick = (e) => {
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
         e.preventDefault();
         setCounter(counter + 1);
     }

@@ -10,23 +10,19 @@ export const Form1 = () => {
     const [showData, setShowData] = useState({ name: '', text: '', position: '' });
     const [select, setSelect] = useState('');
 
-    // @ts-ignore
-    const handleInputChange = (e) => {
-        setInputText(e.target.value);
+    const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
+        setInputText((e.target as HTMLInputElement).value);
     }
 
-    // @ts-ignore
-    const handleTextareaChange = (e) => {
-        setTextareaText(e.target.value);
+    const handleTextareaChange = (e: React.FormEvent<HTMLTextAreaElement>) => {
+        setTextareaText((e.target as HTMLTextAreaElement).value);
     }
 
-    // @ts-ignore
-    const handleSelect = (e) => {
-        setSelect(e.target.value);
+    const handleSelect = (e: React.FormEvent<HTMLSelectElement>) => {
+        setSelect((e.target as HTMLSelectElement).value);
     }
 
-    // @ts-ignore
-    const handleShow = (e) => {
+    const handleShow = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         setShowData({ name: inputText, text: textareaText, position: select });
         setInputText('');
@@ -36,53 +32,67 @@ export const Form1 = () => {
     console.log({inputText, textareaText, select});
 
     return (
+        <>
+            <form>
+                {/*Input*/}
+                <label htmlFor="name">Name:
+                    <input
+                        type="text"
+                        name="name"
+                        value={inputText}
+                        onChange={handleInputChange}
+                    />
+                </label> {/*// привязывание к label = оборачивание в него*/}
 
-    <>
-        <form>
-            {/*Input*/}
-            <label htmlFor="name">Name:
-                <input
-                    type="text"
-                    name="name"
-                    value={inputText}
-                    onChange={handleInputChange}
+                <br />
+                {/*Textarea*/}
+                <label htmlFor="text">Text:</label> {/*// привязывание при помощи htmlFor={id элемента} */}
+                <textarea
+                    id="text"
+                    value={textareaText}
+                    onChange={handleTextareaChange}
                 />
-            </label> {/*// привязывание к label = оборачивание в него*/}
 
-            <br />
-            {/*Textarea*/}
-            <label htmlFor="text">Text:</label> {/*// привязывание при помощи htmlFor={id элемента} */}
-            <textarea
-                id="text"
-                value={textareaText}
-                onChange={handleTextareaChange}
-            />
+                <br />
 
-            <br />
+                <select value={select} onChange={handleSelect}>
+                    {/*<option value="front-end">front-end</option>
+                    <option value="back-end">back-end</option>
+                    <option value="full-stack">full-stack</option>*/}
+                    { POSITIONS.map(({ value, id, title }) => {
+                        return <option value={value} key={id}>{title}</option>
+                    }) }
+                </select>
 
-            <select value={select} onChange={handleSelect}>
-                {/*<option value="front-end">front-end</option>
-                <option value="back-end">back-end</option>
-                <option value="full-stack">full-stack</option>*/}
-                { POSITIONS.map(({ value, id, title }) => {
-                    return <option value={value} key={id}>{title}</option>
-                }) }
-            </select>
+                <br />
 
-            <br />
+                {/*Submit button*/}
+                <button onClick={handleShow}>Show</button>
+            </form>
 
-            {/*Submit button*/}
-            <button onClick={handleShow}>Show</button>
-        </form>
-
-        <p>Name: {showData.name}</p>
-        <p>Text: {showData.text}</p>
-        <p>Position: {showData.position}</p>
-    </>
+            <p>Name: {showData.name}</p>
+            <p>Text: {showData.text}</p>
+            <p>Position: {showData.position}</p>
+        </>
     )
 }
 
-export class Form2 extends React.Component {
+interface IFormShowDataState {
+    name: string;
+    text: string;
+    position: string;
+};
+
+interface IFormState {
+    inputText: string;
+    textareaText: string;
+    selectedPosition: string;
+    showData: IFormShowDataState;
+};
+
+interface IFormProps {};
+
+export class Form2 extends React.Component<IFormProps, IFormState> {
     state = {
         inputText: '',
         textareaText: '',
@@ -94,29 +104,28 @@ export class Form2 extends React.Component {
         }
     };
 
-    // @ts-ignore
-    handleInputChange = ({ target: { value } }) => {
+    handleInputChange = ({ target }: React.FormEvent<HTMLInputElement>) => {
+        const { value } = target as HTMLInputElement;
         this.setState({
             inputText: value,
         })
     }
 
-    // @ts-ignore
-    handleTextareaChange = ({ target: { value } }) => {
+    handleTextareaChange = ({ target }: React.FormEvent<HTMLTextAreaElement>) => {
+        const { value } = target as HTMLTextAreaElement;
         this.setState({
             textareaText: value,
         })
     }
 
-    // @ts-ignore
-    handleSelect = ({ target: { value } }) => {
+    handleSelect = ({ target }: React.FormEvent<HTMLSelectElement>) => {
+        const { value } = target as HTMLSelectElement;
         this.setState({
             selectedPosition: value,
         })
     }
 
-    // @ts-ignore
-    handleData = (e) => {
+    handleData = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         const { inputText, textareaText, selectedPosition } = this.state;
         this.setState({
