@@ -84,6 +84,11 @@ export class CounterButton2 extends React.Component<ICounterProps, ICounterState
     }
 }
 
+
+const Button = ({onClick, children}: {onClick: (e: React.MouseEvent<HTMLButtonElement>) => void, children: React.ReactNode}) => {
+    return (<button onClick={onClick}>+1</button>)
+}
+
 export const CounterButton3: React.FC = () => { // функциональные реакт компоненты должны всегда что-то возвращать
     // типы пропсов прописываются как в дженерике React.FC<{ active: boolean, type: string }> = ({ active, type }) => {
     // или
@@ -100,7 +105,7 @@ export const CounterButton3: React.FC = () => { // функциональные 
     return (
         <div>
             { counter }
-            <button onClick={handleClick}>+1</button>
+            <Button onClick={handleClick}>+1</Button>
         </div>
     );
 }

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import FuncApp, { ClassApp, scratchComp } from './App';
 import { CounterButton1, CounterButton2, CounterButton3 } from "./state/Counter";
-import { Counter1, Counter2 } from "./event/Counter";
+//import { Counter1, Counter2 } from "./event/Counter";
 import { App } from './conditional-rendering/App';
 import { Tabs } from "./lists-and-keys/Tabs";
 import { List } from "./lists-and-keys/List";
@@ -15,11 +15,26 @@ import Routing from "./hoc/Routing";
 import Preloader from "./hoc/hoc-preloader/Preloader";
 import Sandbox from "./portal/ModalSandbox";
 import HOCApp from "./hoc/ToggleButtonHOC";
+import { Counter3, Counter1, Counter2 } from './props/Counter';
+import AuthContextApp from "./context/AuthContext/AuthContext";
+import StyledComponents from "./styled-components/components-sandbox";
+import {createGlobalStyle, ThemeProvider} from 'styled-components';
+import { themes } from './styled-components/themes';
+
+const GlobalStyle = createGlobalStyle` // глобальные стили - применимы ко всему приложению
+  body {
+    font-family: 'Times New Roman';
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+`;
 
 const element = <h1>Hello Element</h1>; // элемент
 
 ReactDOM.render(
-    <div style={{ marginTop: '20px', marginLeft: '20px' }}>
+    <ThemeProvider theme={themes}>
+        <GlobalStyle />
         {/*<ClassApp /> // react intro
         <FuncApp />
         {scratchComp}
@@ -61,6 +76,12 @@ ReactDOM.render(
         {/*<Sandbox /> // portal
         */}
 
-    </div>, // компонент
+        {/*<AuthContextApp /> // context
+        */}
+
+        {/*<StyledComponents /> // styled components
+        */}
+
+    </ThemeProvider>, // компонент
   document.getElementById('root')
 );

@@ -8,7 +8,7 @@ import './styles.css';
         ]);*/
 
 
-const style: React.CSSProperties = { color: 'red', textTransform: 'uppercase' };
+const style: React.CSSProperties = { color: 'red', textTransform: 'uppercase', fontSize: 2 };
 // Fragment
 const Column: React.FC = () => {
     /*return (

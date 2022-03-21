@@ -32,9 +32,9 @@ export const Message = ({ text }: IMessageProps) => {
     return (
         <>
             {
-                text && (
+                text ? (
                     <h3>{text}</h3>
-                )
+                ) : ( <p>No text</p> )
             }
         </>
     )
