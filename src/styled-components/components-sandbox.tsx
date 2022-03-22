@@ -52,7 +52,7 @@ const Button = styled.button<IButtonProps>`
   background-color: red;
   transition: 0.6s linear;
   
-  &:hover {
+  &:hover:enabled {
     background-color: orange;
   }
   
@@ -90,7 +90,7 @@ const StyledComponents = () => {
                 </Box>
                 <Button primary>Primary button</Button>
                 <Button outlined>Red outlined button</Button>
-                <LargeButton>Large Button</LargeButton>
+                <LargeButton disabled={true}>Large Button</LargeButton>
             </FlexBox>
         </>
     )

@@ -20,6 +20,7 @@ import AuthContextApp from "./context/AuthContext/AuthContext";
 import StyledComponents from "./styled-components/components-sandbox";
 import {createGlobalStyle, ThemeProvider} from 'styled-components';
 import { themes } from './styled-components/themes';
+import NewsPage from "./api/pages/news";
 
 const GlobalStyle = createGlobalStyle` // глобальные стили - применимы ко всему приложению
   body {
@@ -27,6 +28,12 @@ const GlobalStyle = createGlobalStyle` // глобальные стили - пр
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+  }
+
+  button {
+    &:disabled {
+      pointer-events: none;
+    }
   }
 `;
 
@@ -81,6 +88,9 @@ ReactDOM.render(
 
         {/*<StyledComponents /> // styled components
         */}
+
+        <NewsPage />
+
 
     </ThemeProvider>, // компонент
   document.getElementById('root')
