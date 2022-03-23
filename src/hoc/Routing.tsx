@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Link } from "react-router-dom";
 
-// @ts-ignore
 /*const AppLink = ({ to, children }) => ({
     render: () => (
             <Link to={to} activeClassName="active">
@@ -10,8 +9,7 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
         )
 })*/// старая версия
 
-// @ts-ignore
-const AppLink: React.FC<{ to: string }> = (props) => ({
+const AppLink = (props: { to: string, children: React.ReactNode }) => ({
     render: () => (
         <Link {...props} className="active" />
         // новая версия
@@ -25,11 +23,9 @@ class Routing extends React.Component {
       return (
       <Router>
         <nav>
-          {/*// @ts-ignore*/}
+           // @ts-ignore
           <AppLink to="/">Home</AppLink>
-            {/*// @ts-ignore*/}
           <Link to="/portfolio" className="active">Portfolio</Link>
-            {/*// @ts-ignore*/}
           <Link to="/contacts" className="active">Contacts</Link>
           {/*// мы каждый раз повторяем имена классов
           // а это значит, что если мы решим поменять его

@@ -11,14 +11,17 @@ export const Form1 = () => {
     const [select, setSelect] = useState('');
 
     const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
+        console.log((e.target as HTMLInputElement).value);
         setInputText((e.target as HTMLInputElement).value);
     }
 
     const handleTextareaChange = (e: React.FormEvent<HTMLTextAreaElement>) => {
+        console.log((e.target as HTMLTextAreaElement).value);
         setTextareaText((e.target as HTMLTextAreaElement).value);
     }
 
     const handleSelect = (e: React.FormEvent<HTMLSelectElement>) => {
+        console.log((e.target as HTMLSelectElement).value);
         setSelect((e.target as HTMLSelectElement).value);
     }
 

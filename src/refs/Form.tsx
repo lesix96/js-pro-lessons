@@ -13,6 +13,7 @@ export const Form11 = () => {
 
     // и теперь 3 метода мы можем заменить одним
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>): void => {
+        console.log(e.target.value);
         setInputText((inputRef.current  as HTMLInputElement).value);
         setTextareaText((textareaRef.current as HTMLTextAreaElement).value);
         setSelect((selectRef.current as HTMLSelectElement).value);
@@ -48,6 +49,7 @@ export const Form11 = () => {
             {/*Input*/}
             <label htmlFor="name">Name:
                 <input
+                    ref={inputRef}
                     type="text"
                     name="name"
                     value={inputText}
@@ -59,6 +61,7 @@ export const Form11 = () => {
             {/*Textarea*/}
             <label htmlFor="text">Text:</label> {/*// привязывание при помощи htmlFor={id элемента} */}
             <textarea
+                ref={textareaRef}
                 id="text"
                 value={textareaText}
                 onChange={handleChange}
@@ -66,7 +69,7 @@ export const Form11 = () => {
 
             <br />
 
-            <select value={select} onChange={handleChange}>
+            <select value={select} onChange={handleChange} ref={selectRef}>
                 {/*<option value="front-end">front-end</option>
                 <option value="back-end">back-end</option>
                 <option value="full-stack">full-stack</option>*/}

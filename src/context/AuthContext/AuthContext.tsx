@@ -63,6 +63,6 @@ class Context extends Component<{}, { isAuth: Boolean }> {
 }
 
 
-const AuthContextApp:React.FC = () => <Context />;
+const AuthContextApp: React.FC = () => <Context />;
 
 export default AuthContextApp;

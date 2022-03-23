@@ -25,8 +25,8 @@ import NewsPage from "./api/pages/news";
 const GlobalStyle = createGlobalStyle` // глобальные стили - применимы ко всему приложению
   body {
     font-family: 'Times New Roman';
-    margin: 0;
-    padding: 0;
+    margin: 10px;
+    padding: 10px;
     box-sizing: border-box;
   }
 
@@ -83,14 +83,14 @@ ReactDOM.render(
         {/*<Sandbox /> // portal
         */}
 
-        {/*<AuthContextApp /> // context
-        */}
+        <AuthContextApp />
+
 
         {/*<StyledComponents /> // styled components
         */}
 
-        <NewsPage />
-
+        {/*<NewsPage /> // api
+        */}
 
     </ThemeProvider>, // компонент
   document.getElementById('root')

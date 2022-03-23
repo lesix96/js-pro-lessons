@@ -35,7 +35,7 @@ const H1 = styled.h1`
 
 const P = styled.p`
   font-size: 12px;
-  color: wheat;
+  color: ${props => props.theme.colors.green};
 `;
 
 interface IButtonProps {
@@ -60,9 +60,10 @@ const Button = styled.button<IButtonProps>`
     color: white;
     background-color: gold;
   `}
-
+  
+  //props => props.outlined === ({ outlined }) деструктуризация 
   ${({ outlined, color, theme }) => outlined && css` /*css - для вложенных шаблонных литералов*/
-    color: ${color || theme.colors.primary};
+    color: ${color || theme.colors.primary}; // props => props.theme.colors.primary
     border: 1px solid ${color || theme.colors.primary};
     background-color: pink;
   `}
