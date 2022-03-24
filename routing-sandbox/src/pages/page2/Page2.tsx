@@ -1,18 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Page1 = () => {
+const Page2 = () => {
     return (
         <>
-            <div>I am Page1</div>
+            <div>I am Page2</div>
+
             <button>
-                <Link to="/Page2">
-                    Page 2
+                <Link to="/page1">
+                    Page 1
                 </Link>
             </button>
 
             <button>
-                <Link to="/Page3">
+                <Link to="/page3">
                     Page 3
                 </Link>
             </button>
@@ -20,4 +21,4 @@ const Page1 = () => {
     )
 }
 
-export default Page1;
+export default Page2;

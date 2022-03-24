@@ -11,17 +11,17 @@ const Layout = ({ children }: ILayout) => {
         <>
             <ul>
                 <li>
-                    <NavLink className={(navData) => navData.isActive ? 'active' : '' } to="/">
+                    <NavLink className={(navData) => navData.isActive ? 'active' : '' } to="/page1">
                         Home Page 1
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/Page2">
+                    <NavLink to="/page2">
                         Home Page 2
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/Page3">
+                    <NavLink to="/page3">
                         Home Page 3
                     </NavLink>
                 </li>

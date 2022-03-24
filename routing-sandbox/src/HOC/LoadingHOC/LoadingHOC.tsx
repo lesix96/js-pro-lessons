@@ -1,5 +1,5 @@
 import React from 'react';
-import './loadingHOC.css';
+import './LoadingHOC.css';
 
 const isEmpty = (prop: any) => (
     prop === null ||
@@ -24,4 +24,3 @@ export const LoadingHOC = (loadingProp: string) => <P extends Record<string, any
 
 
 export default LoadingHOC;
-
