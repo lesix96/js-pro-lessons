@@ -13,7 +13,6 @@ const AuthContext = React.createContext<IContext>({
 
 // Inner component (new syntax of static property)
 class Login extends Component {
-
     static contextType = AuthContext; // типизируем контекст
     context!: React.ContextType<typeof AuthContext> // описываем, экземпляром какого типа является контекст
 
@@ -31,8 +30,8 @@ class Login extends Component {
 // Inner component (old variant with Consumer)
 const Profile: React.FC = (): React.ReactElement => (
     <AuthContext.Consumer>
-        {({ isAuth }: IContext) => (
-            <h1>{!isAuth ? 'Please log in' : 'You are logged in'}</h1>
+        {(context: IContext) => (
+            <h1>{!context.isAuth ? 'Please log in' : 'You are logged in'}</h1>
         )}
     </AuthContext.Consumer>
 );

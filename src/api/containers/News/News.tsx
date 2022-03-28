@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
-import Title from './../components/Title/Title';
-import NewsPost from './../components/NewsPost/NewsPost';
-import Input from './../components/Input/Input';
-import Select from './../components/Select/Select';
-import Pagination from './../components/Pagination/Pagination';
-import { BASE_PATH, SEARCH_PATH, SEARCH_PARAM, PAGE_HITS, PAGE_PARAM } from '../constants/api-constants';
+import Title from '../../components/common-components/Title/Title';
+import NewsPost from '../../components/news-components/NewsPost/NewsPost';
+import Input from '../../components/common-components/Input/Input';
+import Select from '../../components/common-components/Select/Select';
+import Pagination from '../../components/common-components/Pagination/Pagination';
+import { BASE_PATH, SEARCH_PATH, SEARCH_PARAM, PAGE_HITS, PAGE_PARAM } from '../../constants/api-constants';
 
-import './news-container.css';
-import { HITS } from '../components/Select/select-constants';
+import './News.css';
+import { HITS } from '../../components/common-components/Select/select-constants';
 
 interface IResult {
     hits: IPost[],

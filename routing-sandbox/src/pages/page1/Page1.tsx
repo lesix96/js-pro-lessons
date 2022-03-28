@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import { LinksComponent } from '../../components/page1-components/LinksComponent/LinksComponent';
 
 interface IPreloaderState {

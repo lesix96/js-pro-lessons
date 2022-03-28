@@ -20,7 +20,7 @@ import AuthContextApp from "./context/AuthContext/AuthContext";
 import StyledComponents from "./styled-components/components-sandbox";
 import {createGlobalStyle, ThemeProvider} from 'styled-components';
 import { themes } from './styled-components/themes';
-import NewsPage from "./api/pages/news";
+import NewsPage from "./api/pages/NewsPage";
 
 const GlobalStyle = createGlobalStyle` // глобальные стили - применимы ко всему приложению
   body {
@@ -42,6 +42,7 @@ const element = <h1>Hello Element</h1>; // элемент
 ReactDOM.render(
     <ThemeProvider theme={themes}>
         <GlobalStyle />
+
         {/*<ClassApp /> // react intro
         <FuncApp />
         {scratchComp}
@@ -70,6 +71,8 @@ ReactDOM.render(
         {/*<Form1 /> // forms
         <Form2 />*/}
 
+        <Form1 />
+
         {/*<Counter /> // lifecycle methods
         */}
 
@@ -83,8 +86,8 @@ ReactDOM.render(
         {/*<Sandbox /> // portal
         */}
 
-        <AuthContextApp />
-
+        {/*<AuthContextApp /> // context
+        */}
 
         {/*<StyledComponents /> // styled components
         */}

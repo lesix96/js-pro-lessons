@@ -1,12 +1,10 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import React from "react";
 import './Layout.css';
 
-interface ILayout {
-    children: React.ReactNode;
-}
 
-const Layout = ({ children }: ILayout) => {
+const Layout = () => { // как правило Layout включает в себя повторяющиеся на каждой странице header, footer, иногда общее для всех
+    // сайдбар меню
     return (
         <>
             <ul>
@@ -26,7 +24,7 @@ const Layout = ({ children }: ILayout) => {
                     </NavLink>
                 </li>
             </ul>
-            { children }
+            <Outlet /> {/*вместо children в оберточном роуте (который характерен для каждой страницы)*/}
         </>
     )
 }

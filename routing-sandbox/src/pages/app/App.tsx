@@ -5,18 +5,25 @@ import Layout from "../../components/common-components/Layout/Layout";
 import Page1 from "../page1/Page1";
 import Page2 from '../page2/Page2';
 import Page3 from '../page3/Page3';
-import PostPage from "../../components/page1-components/PostPage/PostPage";
+import NotFoundPage from '../not-found-page/NotFoundPage';
 
 const App = () => {
     return (
-        <Layout>
             <Routes>
-                <Route path='/' element={<Navigate replace to="/page1" />} />
-                <Route path='/page1/*' element={<Page1 />} />
-                <Route path='/page2' element={<Page2 />} />
-                <Route path='/page3' element={<Page3 />} />
+                <Route path="*" element={<NotFoundPage />} />
+                <Route element={<Layout />}>
+                    <Route path='/' element={<Navigate replace to="/page1" />} />
+                    <Route path='/page1/*' element={<Page1 />} />
+                    <Route path='/page2' element={<Page2 />} />
+                    <Route path='/page3' element={<Page3 />} />
+                    {/*
+                        тк мы передаем в element целый компонент, то в него можно передавать пропсы
+                        допустим, инфу, полученную в результате fetch-запроса в компоненте App
+                        пример
+                        <Route path='/page3' element={<Page3 users={users} />} />
+                    */}
+                </Route>
             </Routes>
-        </Layout>
     )
 }
 
