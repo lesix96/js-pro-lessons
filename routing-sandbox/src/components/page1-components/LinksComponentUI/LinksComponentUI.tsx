@@ -1,11 +1,10 @@
 import React from "react";
-import {Routes, Route, NavLink} from "react-router-dom";
+import { Routes, Route, NavLink } from "react-router-dom";
 import PostPage from "../PostPage/PostPage";
 
 interface ILinksComponentUIProps {
     readonly data: any
 }
-interface IAppComponentUIState {}
 
 const LinksComponentUI = ({ data: { data } }: ILinksComponentUIProps) => {
     console.log(data);

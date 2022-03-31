@@ -22,7 +22,7 @@ const AppComponent = LoadingHOC('data')(AppComponentUI); // говорим, от
 
 interface IPreloaderProps {}
 interface IPreloaderState {
-    data: Record<string, any>
+    data: Record<string, any>,
 }
 
 class Preloader extends React.Component<IPreloaderProps, IPreloaderState> {
@@ -51,6 +51,6 @@ class Preloader extends React.Component<IPreloaderProps, IPreloaderState> {
             </>
         );
     }
-};
+}
 
 export default Preloader;

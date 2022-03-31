@@ -62,7 +62,15 @@ class News extends Component<INewsProps, INewsState> {
         this.setState({ result });
     }
 
-    handleInputChange = ({ target }: React.FormEvent<HTMLInputElement>) => {
+    // (event)
+    // e = {
+    //     target: {
+    //         value: '123'
+    //     }
+    // }
+
+    handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
+        const { target } = e;
         const { value } = target as HTMLInputElement;
         this.setState({
             searchQuery: value
@@ -72,7 +80,8 @@ class News extends Component<INewsProps, INewsState> {
     // для того, чтобы форма была управляема и при нажатии на клавишу enter
     // поисковой запрос можно было достать и использовать для запроса на сервер
 
-    getSearch = ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
+    getSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        const { key } = e;
         if(key === 'Enter') {
             const { searchQuery, hitsPerPage } = this.state;
             this.setState({
