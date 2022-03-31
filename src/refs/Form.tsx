@@ -107,6 +107,16 @@ interface IFormState {
 interface IFormProps {};
 
 export class Form22 extends React.Component<IFormProps, IFormState> {
+    /* constructor(props: IFormProps) {
+            super(props);
+
+            this.inputRef = React.createRef<HTMLInputElement>();
+            this.handleChange = this.handleChange.bind(this);
+            this.state = {
+                inputText: '',
+            }
+    } */
+    
     state = {
         inputText: '',
         textareaText: '',
@@ -118,8 +128,10 @@ export class Form22 extends React.Component<IFormProps, IFormState> {
         }
     };
 
-    // getRef = (node) => { this.el = node } // так во внутреннюю переменную el присваивается ссылка на узел элемента
-    // а значение ref на инпуте будет результатом вызова getRef
+    // setRef = (ref) => {
+    //  this.ref = ref
+    // } // так во внутреннюю переменную ref присваивается ссылка на узел элемента
+    // а значение ref на инпуте будет результатом вызова setRef
     // является устаревшим способом способом и был заменен с 16 версии на createRef
 
     private inputRef = React.createRef<HTMLInputElement>(); // ссылки на соответствующие элементы
@@ -186,7 +198,7 @@ export class Form22 extends React.Component<IFormProps, IFormState> {
                     {/*Input*/}
                     <label htmlFor="name">Name:
                         <input
-                            // ref={this.getRef}
+                            // ref={this.setRef}
                             ref={this.inputRef}
                             type="text"
                             name="name"

@@ -21,6 +21,9 @@ import StyledComponents from "./styled-components/components-sandbox";
 import {createGlobalStyle, ThemeProvider} from 'styled-components';
 import { themes } from './styled-components/themes';
 import NewsPage from "./api/pages/NewsPage";
+import WithContext from "./hooks/useContext/WithContext";
+import {Form} from "./hooks/useRef/Form";
+import Converter from "./hooks/useMemo/components/Converter/Converter";
 
 const GlobalStyle = createGlobalStyle` // глобальные стили - применимы ко всему приложению
   body {
@@ -71,8 +74,6 @@ ReactDOM.render(
         {/*<Form1 /> // forms
         <Form2 />*/}
 
-        <Form1 />
-
         {/*<Counter /> // lifecycle methods
         */}
 
@@ -94,6 +95,14 @@ ReactDOM.render(
 
         {/*<NewsPage /> // api
         */}
+
+        {/*<WithContext /> // hooks useContext
+        */}
+
+        {/*<Form /> // hooks useRef
+        */}
+
+        <Converter />
 
     </ThemeProvider>, // компонент
   document.getElementById('root')

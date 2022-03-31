@@ -1,0 +1,3 @@
+export const DOLLARS_TO_EUROS_RATE = 0.90;
+export const DOLLARS_TO_RUBLES_RATE = 82;
+export const DOLLARS_TO_BEL_RUBLES_RATE = 3.25;
