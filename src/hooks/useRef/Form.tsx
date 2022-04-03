@@ -18,20 +18,6 @@ export const Form = () => {
         setTextareaText((textareaRef.current as HTMLTextAreaElement).value);
         setSelect((selectRef.current as HTMLSelectElement).value);
     }
-/*
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        setInputText(e.target.value);
-    }
-
-    const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
-        setTextareaText(e.target.value);
-    }
-
-    const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>): void => {
-        setSelect(e.target.value);
-    }
-*/
 
     const handleShow = (e: React.MouseEvent<HTMLButtonElement>): void => {
         e.preventDefault();
@@ -40,7 +26,7 @@ export const Form = () => {
         setTextareaText('');
     }
 
-    console.log({inputText, textareaText, select});
+    console.log({inputText, textareaText, select}, inputRef);
 
     return (
 
@@ -70,9 +56,6 @@ export const Form = () => {
             <br />
 
             <select value={select} onChange={handleChange} ref={selectRef}>
-                {/*<option value="front-end">front-end</option>
-                <option value="back-end">back-end</option>
-                <option value="full-stack">full-stack</option>*/}
                 { POSITIONS.map(({ value, id, title }) => {
                     return <option value={value} key={id}>{title}</option>
                 }) }

@@ -99,10 +99,11 @@ ReactDOM.render(
         {/*<WithContext /> // hooks useContext
         */}
 
-        {/*<Form /> // hooks useRef
-        */}
+        <Form />
 
-        <Converter />
+
+        {/*<Converter /> // hook memo
+        */}
 
     </ThemeProvider>, // компонент
   document.getElementById('root')
