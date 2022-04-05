@@ -3,8 +3,8 @@ import './Footer.css';
 import { FILTERS_BTN } from '../../../mock-data/todos';
 
 interface IFooter {
-    amount: number,
-    activeFilter: string,
+    amount: number;
+    activeFilter: string;
 }
 
 const Footer = ({ amount, activeFilter }: IFooter) => ( // принимает активный фильтр и количество оставшихся тасок

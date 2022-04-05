@@ -3,26 +3,79 @@ import './TodoList.css';
 import TodoItemsList from "../../components/todo-page-components/TodoItemsList/TodoItemsList";
 import TodoInput from '../../components/todo-page-components/TodoInput/TodoInput';
 import Footer from '../../components/common-components/Footer/Footer';
-import { TASKS } from '../../mock-data/todos';
+import { connect, ConnectedProps } from "react-redux";
+import { addTask } from '../../redux/actions/tasksActionCreators/actionCreator';
+import { ITask } from "../../mock-data/todos";
+import { AppDispatch } from '../../redux/store/store';
+import { RootState } from '../../redux/reducers';
 
-class TodoList extends Component {
+interface IPropsTodoList extends PropsFromRedux {}
+
+interface IStateTodoList {
+    activeFilter: string;
+    taskText: string;
+}
+
+class TodoList extends Component<IPropsTodoList, IStateTodoList> {
     state = {
         activeFilter: 'all',
+        taskText: ''
+    }
+
+    handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
+        const { value } = e.target as HTMLInputElement;
+        this.setState({
+            taskText: value,
+        })
+    }
+
+    handleAddTask = ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
+        const { taskText } = this.state;
+
+        if (taskText.length > 0 && key === 'Enter') {
+            const { addTask } = this.props;
+
+            addTask({ id: (new Date()).getTime(), text: taskText, isCompleted: false});
+
+            this.setState({
+                taskText: '',
+            })
+        }
     }
 
     render() {
-        const { activeFilter } = this.state;
-        const tasksList = TASKS;
-        const isTasksExist = tasksList && tasksList.length > 0;
+        const { activeFilter, taskText } = this.state;
+        const { tasks } = this.props;
+        const isTasksExist = tasks && tasks.length > 0;
 
         return (
             <div className="todo-wrapper">
-                <TodoInput />
-                {isTasksExist && <TodoItemsList tasksList={tasksList} />}
-                {isTasksExist && <Footer amount={tasksList.length} activeFilter={activeFilter} />}
+                <TodoInput onKeyPress={this.handleAddTask} value={taskText} onChange={this.handleInputChange} />
+                {isTasksExist && <TodoItemsList tasksList={tasks} />}
+                {isTasksExist && <Footer amount={tasks.length} activeFilter={activeFilter} />}
             </div>
         );
     }
 }
 
-export default TodoList;
+const mapStateToProps = (state: RootState) => {
+    const { tasks } = state;
+    return { tasks }
+}
+
+const mapDispatchToProps = (dispatch: AppDispatch) => {
+    return {
+        addTask: ({id, text, isCompleted}: ITask) => {
+            dispatch(addTask({ id, text, isCompleted }));
+        }
+    }
+};
+
+const connector = connect(
+    mapStateToProps,
+    mapDispatchToProps
+);
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+export default connector(TodoList);

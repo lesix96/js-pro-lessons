@@ -2,8 +2,8 @@ import React from 'react';
 import './TodoItem.css';
 
 interface ITodoItem {
-    text: string,
-    isCompleted: boolean,
+    text: string;
+    isCompleted: boolean;
 }
 
 const TodoItem = ({ text, isCompleted }: ITodoItem) => ( // элемент 1 задачи

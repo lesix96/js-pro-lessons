@@ -4,7 +4,7 @@ import TodoItem from '../TodoItem/TodoItem';
 import './TodoItemsList.css';
 
 interface ITodoItemsList {
-    tasksList: ITask[],
+    tasksList: ITask[];
 }
 
 const TodoItemsList = ({ tasksList }: ITodoItemsList) => (

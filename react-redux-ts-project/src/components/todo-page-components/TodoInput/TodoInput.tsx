@@ -2,14 +2,16 @@ import React from 'react';
 import './TodoInput.css';
 
 interface ITodoInput {
-    onChange: () => void,
+    onChange: (arg: React.FormEvent<HTMLInputElement>) => void,
     value: string,
+    onKeyPress: (arg: React.KeyboardEvent<HTMLInputElement>) => void
 }
 
-const TodoInput = ({ value, onChange }: ITodoInput) => (
+const TodoInput = ({ value, onChange, onKeyPress }: ITodoInput) => (
     <div className="todo-input-wrapper">
         <i className="fas fa-plus" />
         <input
+            onKeyPress={onKeyPress}
             className="todo-input"
             placeholder="Click to add task"
             onChange={onChange}
@@ -21,6 +23,7 @@ const TodoInput = ({ value, onChange }: ITodoInput) => (
 TodoInput.defaultProps = {
     onChange: () => {},
     value: '',
+    onKeyPress: () => {}
 }
 
 export default TodoInput;
