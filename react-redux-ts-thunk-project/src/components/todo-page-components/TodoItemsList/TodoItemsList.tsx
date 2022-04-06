@@ -5,13 +5,12 @@ import './TodoItemsList.css';
 
 interface ITodoItemsList {
     tasksList: ITask[];
-    removeTask: (id: number) => void
 }
 
-const TodoItemsList = ({ tasksList, removeTask }: ITodoItemsList) => (
+const TodoItemsList = ({ tasksList }: ITodoItemsList) => (
     <ul className="todo-list">
         {tasksList.map(({ id, text, isCompleted }) => ( // рендерит массив передаваемых ему задач
-            <TodoItem key={id} id={id} text={text} isCompleted={isCompleted} removeTask={removeTask} />
+            <TodoItem key={id} text={text} isCompleted={isCompleted} />
         ))}
     </ul>
 );

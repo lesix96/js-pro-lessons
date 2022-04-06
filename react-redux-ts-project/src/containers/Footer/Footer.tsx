@@ -1,6 +1,6 @@
 import React from 'react';
 import './Footer.css';
-import { FILTERS_BTN } from '../../../mock-data/todos';
+import { FILTERS_BTN } from '../../mock-data/todos';
 
 interface IFooter {
     amount: number;

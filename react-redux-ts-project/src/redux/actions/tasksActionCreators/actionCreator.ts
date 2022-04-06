@@ -1,4 +1,4 @@
-import { ADD_TASK } from "../actions";
+import { ADD_TASK, REMOVE_TASK } from "../actions";
 import { ITask } from "../../../mock-data/todos";
 
 interface IAddTaskAction {
@@ -6,14 +6,29 @@ interface IAddTaskAction {
     payload: ITask;
 }
 
-export type TTaskActionTypes = IAddTaskAction; // объединение экшнов, относящихся
+interface IRemoveTaskAction {
+    type: typeof REMOVE_TASK;
+    payload: {
+        id: number;
+    };
+}
+
+export type TTaskActionTypes = IAddTaskAction | IRemoveTaskAction; // объединение экшнов, относящихся
 // к одной логической области
 
 export const addTask = (task: ITask): TTaskActionTypes => {
     return {
         type: ADD_TASK,
         payload: {
-            ...task
+            ...task // payload: { id: id, text: text, isCompleted: isCompleted }
         }
     }
 }
+ export const removeTask = (id: number): TTaskActionTypes => {
+    return {
+        type: REMOVE_TASK,
+        payload: {
+            id
+        }
+    }
+ }

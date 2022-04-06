@@ -4,10 +4,11 @@ import TodoItemsList from "../../components/todo-page-components/TodoItemsList/T
 import TodoInput from '../../components/todo-page-components/TodoInput/TodoInput';
 import Footer from '../Footer/Footer';
 import { connect, ConnectedProps } from "react-redux";
-import { addTask, removeTask } from '../../redux/actions/tasksActionCreators/actionCreator';
+import { addTask, getTodos } from '../../redux/actions/tasksActionCreators/actionCreator';
 import { ITask } from "../../mock-data/todos";
-import { AppDispatch } from '../../redux/store/store';
 import { RootState } from '../../redux/reducers';
+import { ThunkDispatch } from 'redux-thunk';
+import Loader from "../../components/common-components/Loader/Loader";
 
 interface IPropsTodoList extends PropsFromRedux {}
 
@@ -35,7 +36,7 @@ class TodoList extends Component<IPropsTodoList, IStateTodoList> {
         if (taskText.length > 0 && key === 'Enter') {
             const { addTask } = this.props;
 
-            addTask({ id: (new Date()).getTime(), text: taskText, isCompleted: false });
+            addTask({ id: (new Date()).getTime(), text: taskText, isCompleted: false});
 
             this.setState({
                 taskText: '',
@@ -43,35 +44,40 @@ class TodoList extends Component<IPropsTodoList, IStateTodoList> {
         }
     }
 
+    componentDidMount() {
+        const { getTodos } = this.props;
+        getTodos();
+    }
+
     render() {
         const { activeFilter, taskText } = this.state;
-        const { tasks, removeTask } = this.props;
-        const isTasksExist = tasks && tasks.length > 0;
+        const { tasks } = this.props;
+        const isTasksExist = tasks && (tasks as ITask[]).length > 0;
 
         return (
             <div className="todo-wrapper">
                 <TodoInput onKeyPress={this.handleAddTask} value={taskText} onChange={this.handleInputChange} />
-                {isTasksExist && <TodoItemsList tasksList={tasks} removeTask={removeTask} />}
-                {isTasksExist && <Footer amount={tasks.length} activeFilter={activeFilter} />}
+                {isTasksExist ? <TodoItemsList tasksList={tasks} /> : <Loader />}
+                {isTasksExist && <Footer amount={(tasks as ITask[]).length} activeFilter={activeFilter} />}
             </div>
         );
     }
 }
 
 const mapStateToProps = (state: RootState) => {
-    const { tasks } = state;
-    return { tasks } // { tasks: [ { } { } ] } --> вмерживается в this.props
+    const { tasks: { tasks } } = state;
+    return { tasks }
 }
 
-const mapDispatchToProps = (dispatch: AppDispatch) => {
+const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>) => {
     return {
         addTask: ({id, text, isCompleted}: ITask) => {
             dispatch(addTask({ id, text, isCompleted }));
         },
-        removeTask: (id: number) => {
-            dispatch(removeTask(id));
-        },
-    } // { addTask: func } --> вмерживается в this.props
+        getTodos: async () => {
+            await dispatch(getTodos());
+        }
+    }
 };
 
 const connector = connect(
