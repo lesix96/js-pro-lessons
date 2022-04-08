@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import Title from '../../components/common-components/Title/Title';
-import TodoList from "../../containers/TodoListClass/TodoList";
+import TodoList from "../../containers/TodoList/TodoList";
 
 const TodoPage = () => (
     <Fragment>

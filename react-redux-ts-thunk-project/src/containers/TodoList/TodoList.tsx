@@ -51,13 +51,13 @@ class TodoList extends Component<IPropsTodoList, IStateTodoList> {
 
     render() {
         const { activeFilter, taskText } = this.state;
-        const { tasks } = this.props;
+        const { tasks, isLoading } = this.props;
         const isTasksExist = tasks && (tasks as ITask[]).length > 0;
 
         return (
             <div className="todo-wrapper">
                 <TodoInput onKeyPress={this.handleAddTask} value={taskText} onChange={this.handleInputChange} />
-                {isTasksExist ? <TodoItemsList tasksList={tasks} /> : <Loader />}
+                {!isLoading ? <TodoItemsList tasksList={tasks} /> : <Loader />}
                 {isTasksExist && <Footer amount={(tasks as ITask[]).length} activeFilter={activeFilter} />}
             </div>
         );
@@ -65,8 +65,8 @@ class TodoList extends Component<IPropsTodoList, IStateTodoList> {
 }
 
 const mapStateToProps = (state: RootState) => {
-    const { tasks: { tasks } } = state;
-    return { tasks }
+    const { tasks: { tasks, isLoading } } = state;
+    return { tasks, isLoading }
 }
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>) => {

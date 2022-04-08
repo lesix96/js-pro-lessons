@@ -5,10 +5,9 @@ import { FILTERS_BTN } from '../../mock-data/todos';
 interface IFooter {
     amount: number;
     activeFilter: string;
-    filterChange: (filter: string) => void;
 }
 
-const Footer = ({ amount, activeFilter, filterChange }: IFooter) => ( // принимает активный фильтр и количество оставшихся тасок
+const Footer = ({ amount, activeFilter }: IFooter) => ( // принимает активный фильтр и количество оставшихся тасок
     // кнопка активного фильтра загорается другим цветом
     // а количество оставшихся выводится на экран (чтоб не считать)
     <div className="footer">
@@ -18,7 +17,6 @@ const Footer = ({ amount, activeFilter, filterChange }: IFooter) => ( // при�
                 <button
                     key={id}
                     className={id === activeFilter ? "filter-btn active" : 'filter-btn'}
-                    onClick={() => filterChange(id)}
                 >
                     {text}
                 </button>
