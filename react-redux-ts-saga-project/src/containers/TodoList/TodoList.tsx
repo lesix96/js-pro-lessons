@@ -4,21 +4,20 @@ import TodoItemsList from "../../components/todo-page-components/TodoItemsList/T
 import TodoInput from '../../components/todo-page-components/TodoInput/TodoInput';
 import Footer from '../Footer/Footer';
 import { connect, ConnectedProps } from "react-redux";
-import { addTask, removeTask } from '../../redux/actions/tasksActionCreators/actionCreator';
+import { addTask, removeTask, completeTask } from '../../redux/actions/tasksActionCreators/actionCreator';
 import { ITask } from "../../mock-data/todos";
 import { AppDispatch } from '../../redux/store/store';
 import { RootState } from '../../redux/reducers';
+import { changeFilter } from "../../redux/actions/filtersActionCreators/actionCreator";
 
 interface IPropsTodoList extends PropsFromRedux {}
 
 interface IStateTodoList {
-    activeFilter: string;
     taskText: string;
 }
 
 class TodoList extends Component<IPropsTodoList, IStateTodoList> {
     state = {
-        activeFilter: 'all',
         taskText: ''
     }
 
@@ -29,7 +28,9 @@ class TodoList extends Component<IPropsTodoList, IStateTodoList> {
         })
     }
 
-    handleAddTask = ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
+    handleAddTask = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        const { key } = e;
+
         const { taskText } = this.state;
 
         if (taskText.length > 0 && key === 'Enter') {
@@ -44,23 +45,36 @@ class TodoList extends Component<IPropsTodoList, IStateTodoList> {
     }
 
     render() {
-        const { activeFilter, taskText } = this.state;
-        const { tasks, removeTask } = this.props;
+        const { taskText } = this.state;
+        const { tasks, removeTask, filter, filterChange, completeTask } = this.props;
         const isTasksExist = tasks && tasks.length > 0;
+
+        const filterTasks = (tasks: ITask[]) => {
+            switch (filter) {
+                case 'active':
+                    return tasks.filter(item => !item.isCompleted);
+                case 'completed':
+                    return tasks.filter(item => item.isCompleted);
+                default:
+                    return tasks;
+            }
+        }
+
+        const filteredTasks = filterTasks(tasks);
 
         return (
             <div className="todo-wrapper">
                 <TodoInput onKeyPress={this.handleAddTask} value={taskText} onChange={this.handleInputChange} />
-                {isTasksExist && <TodoItemsList tasksList={tasks} removeTask={removeTask} />}
-                {isTasksExist && <Footer amount={tasks.length} activeFilter={activeFilter} />}
+                {isTasksExist && <TodoItemsList tasksList={filteredTasks} removeTask={removeTask} completeTask={completeTask} />}
+                {isTasksExist && <Footer amount={tasks.length} activeFilter={filter} filterChange={filterChange} />}
             </div>
         );
     }
 }
 
 const mapStateToProps = (state: RootState) => {
-    const { tasks } = state;
-    return { tasks } // { tasks: [ { } { } ] } --> вмерживается в this.props
+    const { tasks, filter } = state;
+    return { tasks, filter } // { tasks: [ {}, {} ] } --> вмерживается в this.props
 }
 
 const mapDispatchToProps = (dispatch: AppDispatch) => {
@@ -71,13 +85,19 @@ const mapDispatchToProps = (dispatch: AppDispatch) => {
         removeTask: (id: number) => {
             dispatch(removeTask(id));
         },
-    } // { addTask: func } --> вмерживается в this.props
+        filterChange: (filter: string) => {
+            dispatch(changeFilter(filter));
+        },
+        completeTask: (id: number) => {
+            dispatch(completeTask(id));
+        }
+    } // { addTask: func, removeTask: func } --> вмерживается в this.props
 };
 
 const connector = connect(
     mapStateToProps,
     mapDispatchToProps
-);
+); // точка соприкосновения реакта и редакса
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
