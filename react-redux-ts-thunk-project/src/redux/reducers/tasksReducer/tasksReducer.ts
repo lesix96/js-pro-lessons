@@ -1,6 +1,6 @@
 import { ADD_TASK, GET_TODOS_FAILURE, GET_TODOS_STARTED, GET_TODOS_SUCCESS } from "../../actions/actions";
 import { ITask } from "../../../mock-data/todos";
-import {IError, TTaskActionTypes } from "../../actions/tasksActionCreators/actionCreator";
+import { IError, TTaskActionTypes } from "../../actions/tasksActionCreators/actionCreator";
 
 export interface IInitialState {
     tasks: ITask[];

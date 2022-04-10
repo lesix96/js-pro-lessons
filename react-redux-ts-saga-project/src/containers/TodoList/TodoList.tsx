@@ -4,11 +4,12 @@ import TodoItemsList from "../../components/todo-page-components/TodoItemsList/T
 import TodoInput from '../../components/todo-page-components/TodoInput/TodoInput';
 import Footer from '../Footer/Footer';
 import { connect, ConnectedProps } from "react-redux";
-import { addTask, removeTask, completeTask } from '../../redux/actions/tasksActionCreators/actionCreator';
+import { addTask, removeTask, completeTask, addAsyncTask } from '../../redux/actions/tasksActionCreators/actionCreator';
 import { ITask } from "../../mock-data/todos";
 import { AppDispatch } from '../../redux/store/store';
 import { RootState } from '../../redux/reducers';
 import { changeFilter } from "../../redux/actions/filtersActionCreators/actionCreator";
+import Loader from '../../components/common-components/Loader/Loader';
 
 interface IPropsTodoList extends PropsFromRedux {}
 
@@ -46,8 +47,8 @@ class TodoList extends Component<IPropsTodoList, IStateTodoList> {
 
     render() {
         const { taskText } = this.state;
-        const { tasks, removeTask, filter, filterChange, completeTask } = this.props;
-        const isTasksExist = tasks && tasks.length > 0;
+        const { tasks, removeTask, filter, filterChange, completeTask, addAsyncTasks, isLoading } = this.props;
+        const isTasksExist = tasks && (tasks as ITask[]).length > 0;
 
         const filterTasks = (tasks: ITask[]) => {
             switch (filter) {
@@ -64,17 +65,17 @@ class TodoList extends Component<IPropsTodoList, IStateTodoList> {
 
         return (
             <div className="todo-wrapper">
-                <TodoInput onKeyPress={this.handleAddTask} value={taskText} onChange={this.handleInputChange} />
-                {isTasksExist && <TodoItemsList tasksList={filteredTasks} removeTask={removeTask} completeTask={completeTask} />}
-                {isTasksExist && <Footer amount={tasks.length} activeFilter={filter} filterChange={filterChange} />}
+                <TodoInput onKeyPress={this.handleAddTask} value={taskText} onChange={this.handleInputChange} addAsyncTasks={addAsyncTasks} />
+                {isLoading ? <Loader /> : <TodoItemsList tasksList={filteredTasks} removeTask={removeTask} completeTask={completeTask} />}
+                {isTasksExist && <Footer amount={(tasks as ITask[]).length} activeFilter={filter} filterChange={filterChange} />}
             </div>
         );
     }
 }
 
 const mapStateToProps = (state: RootState) => {
-    const { tasks, filter } = state;
-    return { tasks, filter } // { tasks: [ {}, {} ] } --> вмерживается в this.props
+    const { tasks: { tasks, isLoading }, filter } = state;
+    return { tasks, filter, isLoading } // { tasks: [ {}, {} ] } --> вмерживается в this.props
 }
 
 const mapDispatchToProps = (dispatch: AppDispatch) => {
@@ -90,6 +91,9 @@ const mapDispatchToProps = (dispatch: AppDispatch) => {
         },
         completeTask: (id: number) => {
             dispatch(completeTask(id));
+        },
+        addAsyncTasks: () => {
+            dispatch(addAsyncTask());
         }
     } // { addTask: func, removeTask: func } --> вмерживается в this.props
 };

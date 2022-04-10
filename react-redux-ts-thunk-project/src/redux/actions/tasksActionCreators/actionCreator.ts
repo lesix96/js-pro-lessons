@@ -1,7 +1,6 @@
 import { ADD_TASK, GET_TODOS_SUCCESS, GET_TODOS_STARTED, GET_TODOS_FAILURE } from "../actions";
 import { ITask } from "../../../mock-data/todos";
 import axios from "axios";
-import { AppDispatch } from "../../store/store";
 import { ActionCreator, Dispatch } from "redux";
 
 export interface IError {
@@ -68,7 +67,7 @@ export const getTodos = () => {
                 }, 3000);
             })
             .catch(err => {
-                dispatch(getTodosFailure(err.message));
+                dispatch(getTodosFailure(err));
             });
     };
 };

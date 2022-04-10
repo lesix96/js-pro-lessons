@@ -1,5 +1,11 @@
-import { createStore, compose } from 'redux';
+import { createStore, compose, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
 import rootReducer from '../reducers';
+
+import { rootSaga } from "../sagas";
+
+// Создать saga middleware
+const sagaMiddleware = createSagaMiddleware();
 
 const composeEnhancers = // для подключения redux dev tools если приложение находится в dev mode и на стороне клиента
     process.env.NODE_ENV !== 'production' &&
@@ -12,11 +18,14 @@ const configureStore = (preloadedState: any) => ( // возвращает улу
     createStore(
         rootReducer, // rootReducer - точка сбора всех reducers приложения
         preloadedState, // изначальное значение store
-        composeEnhancers(), // для подключения redux dev tools к нашему store
+        composeEnhancers(applyMiddleware(sagaMiddleware)), // для подключения redux dev tools к нашему store
     )
 );
 
 const store = configureStore({}); // здесь задается изначальное значение store - {}
+
+// запустить saga middleware
+sagaMiddleware.run(rootSaga);
 
 export type Store = typeof store;
 export type AppDispatch = Store['dispatch']
