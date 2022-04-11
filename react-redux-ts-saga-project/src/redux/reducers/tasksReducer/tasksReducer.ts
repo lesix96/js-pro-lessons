@@ -52,8 +52,9 @@ const tasksReducer = (state = initialState, { payload, type }: TTaskActionTypes)
             const tasks = (payload as IAxiosResponse[]).map((item) => ({ ...item, isCompleted: item.completed, text: item.title }));
             return {
                 ...state, tasks: [
+                    ...state.tasks,
                     ...tasks as ITask[]
-                ], isLoading: false,
+                ], isLoading: false, error: null
             };
         case GET_TODOS_FAILURE:
             return {

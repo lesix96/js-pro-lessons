@@ -47,7 +47,7 @@ class TodoList extends Component<IPropsTodoList, IStateTodoList> {
 
     render() {
         const { taskText } = this.state;
-        const { tasks, removeTask, filter, filterChange, completeTask, addAsyncTasks, isLoading } = this.props;
+        const { tasks, removeTask, filter, filterChange, completeTask, addAsyncTasks, isLoading, error } = this.props;
         const isTasksExist = tasks && (tasks as ITask[]).length > 0;
 
         const filterTasks = (tasks: ITask[]) => {
@@ -74,8 +74,8 @@ class TodoList extends Component<IPropsTodoList, IStateTodoList> {
 }
 
 const mapStateToProps = (state: RootState) => {
-    const { tasks: { tasks, isLoading }, filter } = state;
-    return { tasks, filter, isLoading } // { tasks: [ {}, {} ] } --> вмерживается в this.props
+    const { tasks: { tasks, isLoading, error }, filter } = state;
+    return { tasks, filter, isLoading, error } // { tasks: [ {}, {} ] } --> вмерживается в this.props
 }
 
 const mapDispatchToProps = (dispatch: AppDispatch) => {

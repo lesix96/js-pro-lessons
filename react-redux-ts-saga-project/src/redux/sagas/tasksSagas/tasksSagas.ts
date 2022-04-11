@@ -1,7 +1,8 @@
-import axios from "axios";
-import { all, put, takeLatest, call } from "redux-saga/effects";
+import { all, put, takeLatest, call, select } from "redux-saga/effects";
+import { getTodos } from "../../../api/fetchTasks/fetchTasks";
 import { ADD_ASYNC_TASK } from "../../actions/actions";
 import { getTodosFailure, getTodosStarted, getTodosSuccess } from "../../actions/tasksActionCreators/actionCreator";
+import { taskSelector } from "../../selectors/tasksSelectors/tasksSelectors";
 
 export interface IAxiosResponse {
     id: number;
@@ -10,22 +11,16 @@ export interface IAxiosResponse {
     userId: number;
 }
 
-const getTodos = (api: string) =>
-    axios
-        .get<IAxiosResponse[]>(api)
-
 function* fetchTodoSaga() {
+    const tasks = yield select(taskSelector);
+    console.log({tasks});
     try {
         yield put(
             getTodosStarted()
         );
 
-        const response = yield call(getTodos, "https://jsonplaceholder.typicode.com/todos");
+        const response = yield call(getTodos);
         if (response.data) {
-            yield put(
-                getTodosSuccess(response.data)
-            );
-
             yield put(
                 getTodosSuccess(response.data)
             );
