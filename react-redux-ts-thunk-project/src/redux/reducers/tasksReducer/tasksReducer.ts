@@ -33,6 +33,7 @@ const tasksReducer = (state = initialState, { payload, type }: TTaskActionTypes)
         case GET_TODOS_SUCCESS:
             return {
                 ...state, tasks: [
+                    ...state.tasks,
                     ...payload
                 ], isLoading: false,
             };

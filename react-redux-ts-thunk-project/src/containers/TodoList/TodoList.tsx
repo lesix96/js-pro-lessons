@@ -4,7 +4,7 @@ import TodoItemsList from "../../components/todo-page-components/TodoItemsList/T
 import TodoInput from '../../components/todo-page-components/TodoInput/TodoInput';
 import Footer from '../Footer/Footer';
 import { connect, ConnectedProps } from "react-redux";
-import { addTask, getTodos } from '../../redux/actions/tasksActionCreators/actionCreator';
+import { addTask, getTodos, IError } from '../../redux/actions/tasksActionCreators/actionCreator';
 import { ITask } from "../../mock-data/todos";
 import { RootState } from '../../redux/reducers';
 import { ThunkDispatch } from 'redux-thunk';
@@ -51,13 +51,14 @@ class TodoList extends Component<IPropsTodoList, IStateTodoList> {
 
     render() {
         const { activeFilter, taskText } = this.state;
-        const { tasks, isLoading } = this.props;
+        const { tasks, isLoading, error } = this.props;
         const isTasksExist = tasks && (tasks as ITask[]).length > 0;
 
         return (
             <div className="todo-wrapper">
+                <p>{(error as IError)?.message}</p>
                 <TodoInput onKeyPress={this.handleAddTask} value={taskText} onChange={this.handleInputChange} />
-                {!isLoading ? <TodoItemsList tasksList={tasks} /> : <Loader />}
+                {isLoading ? <Loader /> : <TodoItemsList tasksList={tasks} />}
                 {isTasksExist && <Footer amount={(tasks as ITask[]).length} activeFilter={activeFilter} />}
             </div>
         );
@@ -65,13 +66,13 @@ class TodoList extends Component<IPropsTodoList, IStateTodoList> {
 }
 
 const mapStateToProps = (state: RootState) => {
-    const { tasks: { tasks, isLoading } } = state;
-    return { tasks, isLoading }
+    const { tasks: { tasks, isLoading, error } } = state;
+    return { tasks, isLoading, error }
 }
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>) => {
     return {
-        addTask: ({id, text, isCompleted}: ITask) => {
+        addTask: ({ id, text, isCompleted }: ITask) => {
             dispatch(addTask({ id, text, isCompleted }));
         },
         getTodos: async () => {

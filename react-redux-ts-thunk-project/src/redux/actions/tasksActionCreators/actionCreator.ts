@@ -60,14 +60,30 @@ export const getTodos = () => {
 
         axios
             .get<IAxiosResponse[]>(`https://jsonplaceholder.typicode.com/todos`)
+            // fetch(`https://jsonplaceholder.typicode.com/todos`)
             .then(res => {
-                const mappedResponse = res.data.map(item => ({ ...item, isCompleted: item.completed, text: item.title }));
+                // {
+                //     id: number;
+                //     completed: boolean;
+                //     title: string;
+                //     userId: number;
+                // }
+                // -->
+                // {
+                //     id: number,
+                //     text: string,
+                //     isCompleted
+                // }
+
+                const mappedResponse = res.data.map(item => ({ id: item.id, isCompleted: item.completed, text: item.title }));
                 setTimeout(() => {
                     dispatch(getTodosSuccess(mappedResponse));
                 }, 3000);
             })
             .catch(err => {
-                dispatch(getTodosFailure(err));
+                setTimeout(() => {
+                    dispatch(getTodosFailure(err));
+                }, 3000);
             });
     };
 };

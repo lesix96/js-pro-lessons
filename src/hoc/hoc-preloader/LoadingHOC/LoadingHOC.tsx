@@ -13,10 +13,8 @@ interface WithLoadingProps {
 }
 
 export const LoadingHOC = (loadingProp: string) => <P extends Record<string, any>>(WrappedComponent: React.ComponentType<P>) => {
-    class WithLoading extends React.Component<P & WithLoadingProps> {
-        render() {
-            return isEmpty(this?.props?.[loadingProp]) ? <div className="loader" /> : <WrappedComponent {...this.props as P} />;
-        }
+    const WithLoading = (props: P & WithLoadingProps) => {
+        return isEmpty(props?.[loadingProp]) ? <div className="loader" /> : <WrappedComponent {...props as P} />;
     };
 
     return WithLoading;

@@ -6,7 +6,6 @@ import {
     ITaskIdentifier,
     TTaskActionTypes
 } from "../../actions/tasksActionCreators/actionCreator";
-import { IAxiosResponse } from "../../sagas/tasksSagas/tasksSagas";
 
 export interface IInitialState {
     tasks: ITask[];
@@ -49,13 +48,17 @@ const tasksReducer = (state = initialState, { payload, type }: TTaskActionTypes)
                 ...state, isLoading: true,
             };
         case GET_TODOS_SUCCESS:
-            const tasks = (payload as IAxiosResponse[]).map((item) => ({ ...item, isCompleted: item.completed, text: item.title }));
             return {
                 ...state, tasks: [
                     ...state.tasks,
-                    ...tasks as ITask[]
+                    ...payload as ITask[]
                 ], isLoading: false, error: null
             };
+            // state: {
+            //     isLoading: true,
+            //     error: null,
+            //     tasks: []
+            // }
         case GET_TODOS_FAILURE:
             return {
                 ...state, error: (payload as IRequestError).error, isLoading: false,
