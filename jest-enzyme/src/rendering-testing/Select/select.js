@@ -1,7 +1,7 @@
 import React from "react";
 import "./select.css";
 
-const Input = ({ handleChange, options, value }) => (
+const Select = ({ handleChange, options, value }) => (
   <div className="selectWrapper">
     {options.length > 0 ? (
       <>
@@ -15,15 +15,15 @@ const Input = ({ handleChange, options, value }) => (
         <span className="selectText">per page</span>
       </>
     ) : (
-      <div className="placeholder">"No items"</div>
+      <div className="placeholder">No items</div>
     )}
   </div>
 );
 
-Input.defaultProps = {
+Select.defaultProps = {
   handleChange: () => 'Test',
   options: [],
   value: 0,
 };
 
-export default Input;
+export default Select;

@@ -12,7 +12,7 @@ const componentWillUnmountSpy = jest.spyOn(
 const setUp = () =>
   shallow(
     <Portal>
-      <div>webDev</div>
+      <div>Hello world</div>
     </Portal>
   );
 

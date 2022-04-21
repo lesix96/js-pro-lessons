@@ -5,7 +5,7 @@ interface IContext {
     toggleAuth: () => void,
 }
 
-// Context creation
+// AuthContext creation
 const AuthContext = React.createContext<IContext>({
     isAuth: false,
     toggleAuth: () => {},

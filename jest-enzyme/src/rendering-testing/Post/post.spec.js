@@ -3,13 +3,15 @@ import Post from "./post";
 
 const setUp = (props) => shallow(<Post {...props} />);
 
+const props = { created_at: "01-03-2020" };
+
 describe("should render Post component", () => {
   let component;
   beforeEach(() => {
     component = setUp();
   });
 
-  it("should contain .post wrapper", () => {
+  it("should contain post-class wrapper", () => {
     const wrapper = component.find(".post");
     expect(wrapper.length).toBe(1);
   });
@@ -19,10 +21,15 @@ describe("should render Post component", () => {
     expect(wrapper.length).toBe(1);
   });
 
-  it("should render created date", () => {
-    const created_at = "01-03-2020";
-    component = setUp({ created_at });
+  it("should render created date if has prop", () => {
+    component = setUp(props);
     const date = component.find(".date");
-    expect(date.text()).toBe(new Date(created_at).toLocaleDateString());
+    expect(date.text()).toBe(new Date(props.created_at).toLocaleDateString());
+  });
+
+  it("should render created date if has no prop", () => {
+    component = setUp();
+    const date = component.find(".date");
+    expect(date.text()).toBe("No date");
   });
 });

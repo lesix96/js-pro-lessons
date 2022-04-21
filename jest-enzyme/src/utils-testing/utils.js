@@ -3,3 +3,7 @@ export const removeObjPropImmutably = (obj, prop) => {
   delete res[prop];
   return res;
 };
+
+export const addTwo = (num) => {
+  return num + 2;
+}
