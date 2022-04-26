@@ -1,0 +1,19 @@
+@import "../node_modules/normalize.css";
+@import "assets/fonts/Southern-Aire/Southern-Aire.css";
+
+body {
+    font-family: 'SouthernAire', sans-serif;
+}
+
+#root {
+    width: 100px;
+    height: 100px;
+    background-color: salmon;
+}
+
+#rootWithPicture {
+    width: 100px;
+    height: 100px;
+    background-image: url('assets/images/a7829180746c99c987384e4b2b6df7b8.png');
+    background-size: cover;
+}
