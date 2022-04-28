@@ -44,12 +44,30 @@ describe("Portal component", () => {
     expect(component).toMatchSnapshot();
   });
 
-  it("should call appendChild when component mounted", () => {
-    expect(document.body.appendChild).toHaveBeenCalledTimes(1);
+  describe("Lifecycle methods", () => {
+    it("should call componentDidMount once", () => {
+      expect(componentDidMountSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it("should not call componentWillUnmount when component just mounted", () => {
+      expect(componentDidMountSpy).toHaveBeenCalledTimes(1);
+      expect(componentWillUnmountSpy).toHaveBeenCalledTimes(0);
+    });
+
+    it("should call componentWillUnmount", () => {
+      component.unmount();
+      expect(componentWillUnmountSpy).toHaveBeenCalledTimes(1);
+    });
   });
 
-  it("should call removeChild when component unmounted", () => {
-    component.unmount();
-    expect(document.body.removeChild).toHaveBeenCalledTimes(1);
+  describe("Component handlers", () => {
+    it("should call appendChild when component mounted", () => {
+      expect(document.body.appendChild).toHaveBeenCalledTimes(1);
+    });
+
+    it("should call removeChild when component unmounted", () => {
+      component.unmount();
+      expect(document.body.removeChild).toHaveBeenCalledTimes(1);
+    });
   });
 });

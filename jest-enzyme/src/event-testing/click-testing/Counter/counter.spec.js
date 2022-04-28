@@ -6,6 +6,7 @@ const setUp = () => shallow(<Counter />);
 describe("Count component", () => {
   let component;
   let instance;
+
   beforeEach(() => {
     component = setUp();
     instance = component.instance();
@@ -30,8 +31,15 @@ describe("Count component", () => {
     });
 
     it("should reset count value to custom value", () => {
+      expect(component.state().count).toBe(0);
       instance.handleReset(20);
       expect(component.state().count).toBe(20);
+    });
+
+    it("should handle handleClick", () => {
+      expect(component.state().count).toBe(0);
+      instance.handleClick();
+      expect(component.state().count).toBe(1);
     });
 
     it("should call onClick method", () => {

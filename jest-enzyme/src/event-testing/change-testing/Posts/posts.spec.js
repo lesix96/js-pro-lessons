@@ -16,8 +16,8 @@ describe("Posts component", () => {
   let instance;
 
   beforeEach(() => {
-    component = setUp();
-    instance = component.instance();
+    component = setUp(); // для разметки
+    instance = component.instance(); // для тестирования функций
   });
 
   it("should render Posts component", () => {
@@ -33,8 +33,9 @@ describe("Posts component", () => {
 
     it("should handle change of hits per page", () => {
       expect(component.state().hitsPerPage).toBe(20);
-      instance.handleHitsChange({ target: { value: String(DEFAULT_PAGE) } });
-      expect(component.state().hitsPerPage).toBe(DEFAULT_PAGE);
+      instance.handleHitsChange({ target: { value: '10' } });
+      expect(component.state().hitsPerPage).toBe(10);
+      expect(component.state().page).toBe(0);
     });
 
     it("should handle change page if 'Enter' clicked", () => {

@@ -5,5 +5,5 @@ export const removeObjPropImmutably = (obj, prop) => {
 };
 
 export const addTwo = (num) => {
-  return num + 2;
+  return typeof num === 'number' ? num + 2 : null;
 }
